@@ -1,4 +1,5 @@
 import { Check, Award, Heart, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 import vitoriaPortrait from "@/assets/vitoria-portrait.jpg";
 
 const AboutSection = () => {
@@ -20,7 +21,13 @@ const AboutSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           {/* Image Column */}
-          <div className="relative animate-slide-in-left order-2 lg:order-1">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="relative order-2 lg:order-1"
+          >
             <div className="relative z-10">
               <img
                 src={vitoriaPortrait}
@@ -31,10 +38,16 @@ const AboutSection = () => {
             {/* Decorative Frame - Hidden on mobile */}
             <div className="absolute top-4 left-4 right-4 bottom-4 max-w-md mx-auto border-2 border-caramel/30 rounded-2xl -z-0 transform translate-x-4 translate-y-4 hidden sm:block" />
             {/* Floating Badge */}
-          </div>
+          </motion.div>
 
           {/* Content Column */}
-          <div className="animate-slide-in-right order-1 lg:order-2">
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+            className="order-1 lg:order-2"
+          >
             <span className="inline-block text-caramel font-medium text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4">
               Sobre o Espaço
             </span>
@@ -61,8 +74,16 @@ const AboutSection = () => {
             {/* Highlights Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {highlights.map((item, index) => (
-                <div
+                <motion.div
                   key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: 0.3 + (index * 0.08),
+                    ease: [0.25, 0.1, 0.25, 1] 
+                  }}
                   className="flex items-center gap-3 p-3 sm:p-4 rounded-xl bg-cream hover:bg-cream-dark transition-colors duration-300 group"
                 >
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-coffee/10 flex items-center justify-center flex-shrink-0 group-hover:bg-coffee group-hover:text-primary-foreground transition-all duration-300">
@@ -74,10 +95,10 @@ const AboutSection = () => {
                   <span className="text-xs sm:text-sm font-medium text-foreground">
                     {item.text}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

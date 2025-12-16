@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -66,7 +67,13 @@ const ContactSection = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-center max-w-2xl mx-auto mb-10 sm:mb-16"
+        >
           <span className="inline-block text-caramel font-medium text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4">
             Contato
           </span>
@@ -76,19 +83,33 @@ const ContactSection = () => {
           <p className="text-muted-foreground text-base sm:text-lg px-2">
             Agende seu horário ou tire suas dúvidas. Estou pronta para te atender!
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-1 gap-8 max-w-2xl mx-auto">
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <h3 className="font-display text-2xl font-semibold text-foreground mb-8">
+            <motion.h3 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+              className="font-display text-2xl font-semibold text-foreground mb-8"
+            >
               Informações de contato
-            </h3>
+            </motion.h3>
 
             {contactInfo.map((item, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: 0.15 + (index * 0.08),
+                  ease: [0.25, 0.1, 0.25, 1] 
+                }}
                 className="flex gap-5 p-5 rounded-2xl bg-cream hover:bg-cream-dark transition-colors duration-300 group"
               >
                 <div className="w-14 h-14 rounded-xl bg-coffee/10 flex items-center justify-center flex-shrink-0 group-hover:bg-coffee group-hover:text-primary-foreground transition-all duration-300">
@@ -110,11 +131,15 @@ const ContactSection = () => {
                   )}
                   <p className="text-sm text-muted-foreground mt-0.5">{item.subtext}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
 
             {/* WhatsApp Direct Button */}
-            <a
+            <motion.a
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.4, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
               href="https://wa.me/553597654218?text=Olá! Gostaria de agendar um horário."
               target="_blank"
               rel="noopener noreferrer"
@@ -122,7 +147,7 @@ const ContactSection = () => {
             >
               <Phone size={20} />
               Chamar no WhatsApp
-            </a>
+            </motion.a>
           </div>
         </div>
       </div>

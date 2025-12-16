@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const TestimonialsSection = () => {
@@ -66,20 +67,40 @@ const TestimonialsSection = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-center max-w-2xl mx-auto mb-10 sm:mb-16"
+        >
           <span className="inline-block text-caramel font-medium text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4">
             Depoimentos
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
             O que minhas <span className="text-caramel">clientes dizem</span>
           </h2>
-        </div>
+        </motion.div>
 
         {/* Testimonials Carousel */}
-        <div className="max-w-4xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          className="max-w-4xl mx-auto"
+        >
           <div className="relative px-2 sm:px-12">
             {/* Main Card */}
-            <div className="bg-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-medium border border-border/30">
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={currentIndex}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                className="bg-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-medium border border-border/30"
+              >
               {/* Rating Stars */}
               <div className="flex gap-1 mb-4 sm:mb-6 justify-center">
                 {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
@@ -105,18 +126,19 @@ const TestimonialsSection = () => {
                   {testimonials[currentIndex].service}
                 </p>
               </div>
-            </div>
+            </motion.div>
+            </AnimatePresence>
 
-            {/* Navigation Arrows - Hidden on mobile, use dots instead */}
+            {/* Navigation Arrows - Now visible on mobile */}
             <button
               onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 md:-translate-x-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-coffee text-primary-foreground items-center justify-center shadow-medium hover:bg-coffee-light transition-colors hidden sm:flex"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 md:-translate-x-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-coffee text-primary-foreground items-center justify-center shadow-medium hover:bg-coffee-light transition-colors flex"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-coffee text-primary-foreground items-center justify-center shadow-medium hover:bg-coffee-light transition-colors hidden sm:flex"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-coffee text-primary-foreground items-center justify-center shadow-medium hover:bg-coffee-light transition-colors flex"
             >
               <ChevronRight size={20} />
             </button>
@@ -136,7 +158,7 @@ const TestimonialsSection = () => {
               />
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
