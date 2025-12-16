@@ -1,4 +1,5 @@
 import { Palette, Eye, Sparkles, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 const ServicesSection = () => {
@@ -65,10 +66,17 @@ const ServicesSection = () => {
         {/* Services Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.12,
+                ease: [0.25, 0.1, 0.25, 1]
+              }}
               className="group bg-card rounded-2xl p-6 sm:p-8 shadow-soft hover:shadow-strong transition-all duration-500 transform hover:-translate-y-2 border border-border/50 flex flex-col"
-              style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Icon */}
               <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-coffee/10 flex items-center justify-center mb-5 sm:mb-6 group-hover:bg-coffee group-hover:scale-110 transition-all duration-300">
@@ -119,7 +127,7 @@ const ServicesSection = () => {
                   />
                 </a>
               </Button>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
